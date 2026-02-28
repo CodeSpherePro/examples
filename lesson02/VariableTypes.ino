@@ -21,7 +21,7 @@ double var 9 = 1.234567; 	        //  4/8 bytes	Same as float	On many Arduinos, 
 
 
 char  var11 = 'c';            // Array (C-String): An array of characters ending in a null character \0. It is memory-efficient and preferred for low-memory boards.
-// 1 символ, займає 1 байт в памяті. 
+// 1 символ, займає 1 байт в памяті.
 String var12 = "some text";   // A String Class that allows for easier manipulation (like concatenation) but can fragment memory if used heavily.
 // список символів, або рядок. Як правило використовується для тексту.
 
@@ -31,3 +31,24 @@ String var12 = "some text";   // A String Class that allows for easier manipulat
   multiline comment
   багаторядковий коментар
 */
+
+void setup() {
+    Serial.begin(9600);		// Initialize serial communications with the PC
+}
+
+void loop() {
+    Serial.println("Start");
+    Serial.println(var1);
+    Serial.println(var2);
+    Serial.println(var3);
+    Serial.println(var4);
+    Serial.println(var5);
+    Serial.println(var6);
+    Serial.println(var7);
+    Serial.println(var8);
+    Serial.println(var9);
+    Serial.println(var11);
+    Serial.println(var12);
+    Serial.print("fist part ");
+    Serial.print("second");
+}
