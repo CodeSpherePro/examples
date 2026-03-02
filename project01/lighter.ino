@@ -1,7 +1,7 @@
-unsigned short  redPin = 12;  // association variable with pin number // асоціація змінної з номером піна. Змінна типу short.
-unsigned short  yellowPin = 8;
-unsigned short  greenPin = 4;
-unsigned short  switchPin = 2;
+unsigned int  redPin = 12;  // association variable with pin number // асоціація змінної з номером піна. Змінна типу short.
+unsigned int  yellowPin = 8;
+unsigned int  greenPin = 4;
+unsigned int  switchPin = 2;
 
 boolean lastButton = LOW;
 boolean ledOn = false;

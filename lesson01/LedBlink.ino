@@ -1,4 +1,4 @@
-unsigned short ledPin = 13; // association variable with pin number // асоціація змінної з номером піна. Змінна типу short.
+unsigned int ledPin = 13; // association variable with pin number // асоціація змінної з номером піна. Змінна типу short.
 
 void setup() {
   // initialize digital pin LED_BUILTIN as an output. // ініціалізація порта та налатування його як вихідного
