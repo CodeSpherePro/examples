@@ -1,14 +1,25 @@
 void setup() {
+    Serial.begin(9600);
 }
 
 void loop() {
-    int buttonState = digitalRead(2); // читаємо стан піна 2
+    int buttonState = 1; // виставляємо вхідне значення
 
     if (buttonState == HIGH) { // Якщо значення змінної buttonState рівне 1 (5V або HIGH)
-      digitalWrite(13, HIGH); // то подаємо сигнал 5V на 13 пін
+      Serial.println("Pushed"); // то виводимо Pushed
     } else { // інакше
-      digitalWrite(13, LOW);  // вимикаємо (ставимо напругу біля 0)
+      Serial.println("Not pushed");  // інакше Not pushed
     }
+    delay(1000);
+    int temp = 36;
+    if (temp > 35) {
+      Serial.println("Hot"); // Дуже гаряче!
+    } else if (temp > 20) {
+      Serial.println("Comfortable"); // Комфортно
+    } else {
+      Serial.println("Cold"); // Холодно
+    }
+    delay(10000);
 }
 
 /*

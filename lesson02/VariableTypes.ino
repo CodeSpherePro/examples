@@ -45,8 +45,8 @@ void loop() {
     Serial.println(var5);
     Serial.println(var6);
     Serial.println(var7);
-    Serial.println(var8);
-    Serial.println(var9);
+    Serial.println(var8, 6);
+    Serial.println(var9, 6);
     Serial.println(var11);
     Serial.println(var12);
     Serial.print("fist part ");
