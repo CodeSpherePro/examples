@@ -9,10 +9,11 @@ void setup() {
 }
 
 void loop() {
-  myMethod(HIGH);           // Виклик методу
+  myMethod(HIGH);           // Виклик методу з одним параметром
   delay(1000);
-  blinkLED(13, 500);  // Виклик методу
-  temperature++;      // Ок, можемо змінювати звідусіль
+
+  blinkLED(13, 500);  // Виклик методу з двома параметрами
+  temperature++;      // Ок, можемо змінювати звідусіль temperature
   Serial.print("temperature=");
   Serial.println(temperature); // Ок
 
@@ -31,10 +32,12 @@ void loop() {
   Serial.print("myVar referenceChange =");
   Serial.println(myVar); // myVar тепер 100!
 
-  const int myTest = 33;
+  int myTest = 33;
   printData(myTest);
   countCalls();
-  delay(1000);
+
+  // затримка для можливості переглянути результати
+  delay(2000);
   Serial.println();
   Serial.println();
 
@@ -58,15 +61,17 @@ float calculateCelsius(int rawAnalog) {
 
 void countCalls() {
   static int counter = 0; // Створюється один раз
+  // При кожному виклику countCalls() число буде зростати (1, 2, 3...)
   counter++;
   Serial.print("counter=");
   Serial.println(counter);
+  // Кожен раз перестворюється
   int localCounter = 0;
   localCounter++;
   Serial.print("local counter=");
   Serial.println(localCounter);
 }
-// При кожному виклику countCalls() число буде зростати (1, 2, 3...)
+
 
 void valueChange(int x) {
   x = 100; // Змінюється лише локальна копія
