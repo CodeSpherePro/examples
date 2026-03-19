@@ -5,7 +5,6 @@ void setup() {
   temperature++;
   Serial.print("temperature=");
   Serial.println(temperature); // Ок
-
 }
 
 void loop() {
@@ -13,10 +12,14 @@ void loop() {
   delay(1000);
 
   blinkLED(13, 500);  // Виклик методу з двома параметрами
+  blinkLED(12, 1000); // 2 виклик того ж коду
+
+  float tempC = calculateCelsius(50); // виклик метода з параметром і поверненням значення
+  // Serial.print(voltage); // Помилка!
+
   temperature++;      // Ок, можемо змінювати звідусіль temperature
   Serial.print("temperature=");
   Serial.println(temperature); // Ок
-
   if (analogRead(A0) > 500) {
     int alertValue = 1; // Видна тільки всередині цього "if"
   }
