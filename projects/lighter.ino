@@ -1,5 +1,6 @@
-unsigned int  redPin = 12;  // association variable with pin number
-unsigned int  yellowPin = 8; // асоціація змінної з номером піна. Змінна типу int.
+// асоціація змінної з номером піна. Змінна типу int.
+unsigned int  redPin = 12;
+unsigned int  yellowPin = 8;
 unsigned int  greenPin = 4;
 unsigned int  switchPin = 2;
 
@@ -29,8 +30,8 @@ void customDelay(int inputDelay) {
   int counter = 0;
   while(counter < inputDelay) {
     checkButtonStatus();
-    delay(5);
-    counter = counter + 5;
+    delay(1);
+    counter = counter + 1;
   }
 }
 
@@ -48,16 +49,20 @@ void loop() {
 
 void checkButtonStatus(){
   currentButton = debounce(lastButton);
-  if (lastButton == LOW && currentButton == HIGH) { // перевірка натиску кнопки
-    lighterOn = !lighterOn; // інвертуємо значення включено на виключено і навпаки
+  // перевірка натиску кнопки
+  if (lastButton == LOW && currentButton == HIGH) {
+    // інвертуємо значення включено на виключено і навпаки
+    lighterOn = !lighterOn;
   }
 }
 
 void turnOnLighter() {
+  // блимаємо всіма діодами з певною затримкою
   blinkLED(redPin, 3000, 200);
   blinkLED(yellowPin, 1000, 200);
   blinkLED(greenPin, 3000, 200);
 
+  // моргаючий жовтий перед червоним
   blinkLED(yellowPin, 1000, 200);
   for(int index = 0; index < 3; index++) {
     blinkLED(yellowPin, 200, 200);
@@ -76,8 +81,12 @@ void yellowBlinkingLighter() {
 }
 
 void blinkLED(int pin, int durationHigh, int durationLow) {
-  digitalWrite(pin, HIGH); // включення
-  delay(durationHigh); // затримка
-  digitalWrite(pin, LOW); // виключення
-  delay(durationLow); // затримка
+  // включення pin
+  digitalWrite(pin, HIGH);
+  // затримка
+  customDelay(durationHigh);
+  // виключення
+  digitalWrite(pin, LOW);
+  // затримка
+  customDelay(durationLow);
 }
