@@ -16,13 +16,13 @@ void setup() {
 
   Serial.begin(9600);
   Serial.println("Очікування стабілізації датчика...");
-  
+
   // Цикл триває, поки значення з датчика занадто низьке
   while (analogRead(sensorPin) < 200) {
-    delay(100); 
+    delay(100);
     // Програма "зависне" тут, поки сигнал не перевищить 200
   }
-  
+
   Serial.println("Датчик готовий до роботи!");
 }
 
@@ -32,6 +32,8 @@ void loop() {
   }
 
   // Збільшуємо яскравість від 0 до 255
+  // i++ == i = i + 1
+  // Наприклад: для кроку черуз 1 можна використовувати і = і + 2
   for (int brightness = 0; brightness <= 255; brightness++) {
     analogWrite(ledPin, brightness);
     delay(5); // Затримка для плавності
@@ -61,14 +63,14 @@ void loop() {
 
   // 1. Зовнішній цикл вибирає, який світлодіод зараз працює
   for (int i = 0; i < count; i++) {
-    
+
     // 2. Внутрішній цикл плавно піднімає яскравість вибраного LED
     for (int brightness = 0; brightness <= 255; brightness++) {
       analogWrite(ledPins[i], brightness);
-      delay(2); 
+      delay(2);
     }
     // Вимикаємо перед переходом до наступного піна
-    digitalWrite(ledPins[i], LOW); 
+    digitalWrite(ledPins[i], LOW);
   }
 
   Serial.println("--- Початок сканування датчиків ---");
