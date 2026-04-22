@@ -10,7 +10,7 @@ unsigned int count = 0;
 
 void setup() {
     pinMode(ledPin, OUTPUT);
-    // працює тільки з зовнішнім резистором
+    // працює без резистора
     pinMode(switchPin, INPUT_PULLUP);
     Serial.begin(9600);
 }
