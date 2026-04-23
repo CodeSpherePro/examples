@@ -4,22 +4,20 @@ unsigned int ledPin = 4;
 
 // створення змінних для запам'ятовування статусу
 boolean ledOnStatus = false;
-// високе по замовчуванню при пулап підключенні
-boolean lastButtonStatus = HIGH;
+boolean lastButtonStatus = LOW;
 unsigned int count = 0;
 
 void setup() {
     pinMode(ledPin, OUTPUT);
-    // працює без резистора
-    pinMode(switchPin, INPUT_PULLUP);
+    pinMode(switchPin, INPUT);
     Serial.begin(9600);
 }
 
 void loop() {
     // вичитуємо статус кнопки
-    boolean currentButtonStatus = debounce(lastButtonStatus);
+    boolean currentButtonStatus = digitalRead(switchPin);
     // якщо не статус не рівний попередньому
-    if (lastButtonStatus != currentButtonStatus && currentButtonStatus == LOW) {
+    if (lastButtonStatus != currentButtonStatus && currentButtonStatus == HIGH) {
         count++;
         Serial.print("count=");
         Serial.println(count);
@@ -39,13 +37,5 @@ void loop() {
         // інакше знімаєм живлення
         digitalWrite(ledPin, LOW);
     }
-}
-
-boolean debounce(boolean last) {
-    boolean current = digitalRead(switchPin);
-    if (last != current) {
-        delay(70);
-        current = digitalRead(switchPin);
-    }
-    return current;
+    delay(200);
 }
