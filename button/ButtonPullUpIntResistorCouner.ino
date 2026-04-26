@@ -1,51 +1,102 @@
-// ініціалізація змінних з номером піна
-unsigned int switchPin = 2;
-unsigned int ledPin = 4;
+// асоціація змінної з номером піна. Змінна типу int.
+unsigned int  redPin = 12;
+unsigned int  yellowPin = 8;
+unsigned int  greenPin = 4;
+unsigned int  switchPin = 2;
 
-// створення змінних для запам'ятовування статусу
-boolean ledOnStatus = false;
-// високе по замовчуванню при пулап підключенні
-boolean lastButtonStatus = HIGH;
-unsigned int count = 0;
+// збереження статусу
+boolean lastButton = HIGH;
+boolean lighterOn = false;
+boolean currentButton = HIGH;
+
+// усунення тремтіння кнопки
+boolean debounce(boolean last) {
+  boolean current = digitalRead(switchPin);
+  if (last != current) {
+    delay(50);
+    current = digitalRead(switchPin);
+  } else {
+    delay(50);
+  }
+  return current;
+}
 
 void setup() {
-    pinMode(ledPin, OUTPUT);
-    // працює без резистора
-    pinMode(switchPin, INPUT_PULLUP);
-    Serial.begin(9600);
+  // налаштування режиму пінів
+  pinMode(redPin, OUTPUT);
+  pinMode(yellowPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(switchPin, INPUT_PULLUP);
+  // налаштування дебаг
+  Serial.begin(9600);
+}
+
+// налаштування затримки з перевіркою натискання кнопки
+// імітація конкурентності
+void customDelay(int inputDelay) {
+  int counter = 0;
+  while(counter < inputDelay) {
+    checkButtonStatus();
+    delay(5);
+    counter = counter + 55;
+  }
 }
 
 void loop() {
-    // вичитуємо статус кнопки
-    boolean currentButtonStatus = debounce(lastButtonStatus);
-    // якщо не статус не рівний попередньому
-    if (lastButtonStatus != currentButtonStatus && currentButtonStatus == LOW) {
-        count++;
-        Serial.print("count=");
-        Serial.println(count);
-        if (count == 3) {
-            // то робимо інверсію статусу світлодіода
-            ledOnStatus = !ledOnStatus;
-            Serial.print("ledOnStatus=");
-            Serial.println(ledOnStatus);
-            count = 0;
-        }
-    }
-    // якщо статус == true
-    if (ledOnStatus) {
-        // то подаєм живлення
-        digitalWrite(ledPin, HIGH);
-    } else {
-        // інакше знімаєм живлення
-        digitalWrite(ledPin, LOW);
-    }
+  checkButtonStatus();
+
+  if (lighterOn) {
+    turnOnLighter();
+  } else {
+    yellowBlinkingLighter();
+  }
+
+  lastButton = currentButton;
 }
 
-boolean debounce(boolean last) {
-    boolean current = digitalRead(switchPin);
-    if (last != current) {
-        delay(70);
-        current = digitalRead(switchPin);
-    }
-    return current;
+void checkButtonStatus(){
+  currentButton = debounce(lastButton);
+  if (currentButton == LOW) {
+    Serial.print("currentButton=");
+    Serial.println(currentButton);
+  }
+  // якщо натиснута кнопка
+  if (lastButton == HIGH && currentButton == LOW) {
+    Serial.println("inversion");
+    lighterOn = !lighterOn; // інвертуємо значення
+  }
+}
+
+void turnOnLighter() {
+  blinkWithCheck(redPin, 3000, 200);
+  blinkWithCheck(yellowPin, 1000, 200);
+  blinkWithCheck(greenPin, 3000, 200);
+  blinkWithCheck(yellowPin, 1000, 200);
+  for(int index = 0; index < 3; index++) {
+    blinkWithCheck(yellowPin, 200, 200);
+  }
+}
+
+void blinkWithCheck(int pin, int durationHigh, int durationLow){
+  if (lighterOn) {
+    blinkLED(pin, durationHigh, durationLow);
+  }
+}
+
+void turnOffLighter() {
+  digitalWrite(redPin, LOW);
+  digitalWrite(yellowPin, LOW);
+  digitalWrite(greenPin, LOW);
+}
+
+void yellowBlinkingLighter() {
+  turnOffLighter();
+  blinkLED(yellowPin, 1000, 500);
+}
+
+void blinkLED(int pin, int durationHigh, int durationLow) {
+  digitalWrite(pin, HIGH); // включення
+  customDelay(durationHigh); // затримка
+  digitalWrite(pin, LOW); // виключення
+  customDelay(durationLow); // затримка
 }
