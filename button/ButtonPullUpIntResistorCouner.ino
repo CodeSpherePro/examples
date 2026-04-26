@@ -9,18 +9,6 @@ boolean lastButton = HIGH;
 boolean lighterOn = false;
 boolean currentButton = HIGH;
 
-// усунення тремтіння кнопки
-boolean debounce(boolean last) {
-  boolean current = digitalRead(switchPin);
-  if (last != current) {
-    delay(50);
-    current = digitalRead(switchPin);
-  } else {
-    delay(50);
-  }
-  return current;
-}
-
 void setup() {
   // налаштування режиму пінів
   pinMode(redPin, OUTPUT);
@@ -29,17 +17,6 @@ void setup() {
   pinMode(switchPin, INPUT_PULLUP);
   // налаштування дебаг
   Serial.begin(9600);
-}
-
-// налаштування затримки з перевіркою натискання кнопки
-// імітація конкурентності
-void customDelay(int inputDelay) {
-  int counter = 0;
-  while(counter < inputDelay) {
-    checkButtonStatus();
-    delay(5);
-    counter = counter + 55;
-  }
 }
 
 void loop() {
@@ -83,6 +60,18 @@ void blinkWithCheck(int pin, int durationHigh, int durationLow){
   }
 }
 
+// усунення тремтіння кнопки
+boolean debounce(boolean last) {
+  boolean current = digitalRead(switchPin);
+  if (last != current) {
+    delay(50);
+    current = digitalRead(switchPin);
+  } else {
+    delay(50);
+  }
+  return current;
+}
+
 void turnOffLighter() {
   digitalWrite(redPin, LOW);
   digitalWrite(yellowPin, LOW);
@@ -99,4 +88,15 @@ void blinkLED(int pin, int durationHigh, int durationLow) {
   customDelay(durationHigh); // затримка
   digitalWrite(pin, LOW); // виключення
   customDelay(durationLow); // затримка
+}
+
+// налаштування затримки з перевіркою натискання кнопки
+// імітація конкурентності
+void customDelay(int inputDelay) {
+  int counter = 0;
+  while(counter < inputDelay) {
+    checkButtonStatus();
+    delay(5);
+    counter = counter + 55;
+  }
 }
