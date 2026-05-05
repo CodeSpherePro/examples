@@ -15,5 +15,17 @@ void loop() {
     Serial.print("Значення з фоторезистора: ");
     Serial.println(lightValue);
 
+    // приводимо значення в певний діапазон
+    // все що виходить за межі відсікається
+    int value = constrain(lightValue, 500, 900);
+    Serial.print("стабілізоване значення: ");
+    Serial.println(value);
+
+    // адаптовуємо обрізаний діапазон до значень напруги
+    int ledLevel = map(value, 500, 900, 255, 0);
+    Serial.print("Рівень led: ");
+    Serial.println(ledLevel);
+    digitalWrite(ledPin, ledLevel);
+
     delay(500);
 }
