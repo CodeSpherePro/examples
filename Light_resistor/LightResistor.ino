@@ -2,8 +2,6 @@
 int sensePin = 0;
 
 void setup() {
-    // налаштування режиму пінів
-    pinMode(ledPin, OUTPUT);
     // налаштування дебаг
     Serial.begin(9600);
 }
