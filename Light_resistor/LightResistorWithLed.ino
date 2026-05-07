@@ -17,15 +17,15 @@ void loop() {
 
     // приводимо значення в певний діапазон
     // все що виходить за межі відсікається
-    int value = constrain(lightValue, 500, 900);
+    int value = constrain(lightValue, 700, 955);
     Serial.print("стабілізоване значення: ");
     Serial.println(value);
 
     // адаптовуємо обрізаний діапазон до значень напруги
-    int ledLevel = map(value, 500, 900, 255, 0);
+    int ledLevel = map(value, 700, 955, 255, 0);
     Serial.print("Рівень led: ");
     Serial.println(ledLevel);
-    digitalWrite(ledPin, ledLevel);
+    analogWrite(ledPin, ledLevel);
 
     delay(500);
 }
