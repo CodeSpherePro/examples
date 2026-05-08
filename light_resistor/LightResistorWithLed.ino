@@ -10,7 +10,8 @@ void setup() {
 }
 
 void loop() {
-    // вичитуєм значення з аналогового піна до якого підключений фоторезистор
+    // вичитуєм значення з аналогового піна
+    // до якого підключений фоторезистор
     int lightValue = analogRead(sensePin);
     Serial.print("Значення з фоторезистора: ");
     Serial.println(lightValue);
@@ -21,11 +22,12 @@ void loop() {
     Serial.print("стабілізоване значення: ");
     Serial.println(value);
 
-    // адаптовуємо обрізаний діапазон до значень напруги
+    // адаптовуємо обрізаний діапазон
+    // до значень напруги
     int ledLevel = map(value, 700, 955, 255, 0);
     Serial.print("Рівень led: ");
     Serial.println(ledLevel);
     analogWrite(ledPin, ledLevel);
 
-    delay(500);
+    delay(100);
 }
