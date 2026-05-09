@@ -14,14 +14,14 @@ void setup() {
 void loop() {
     // вичитуєм значення з аналогового піна
     // до якого підключений фоторезистор
-    int termValue = analogRead(sensePin);
+    int thermValue = analogRead(sensePin);
     Serial.print("Значення з термістора: ");
-    Serial.println(termValue);
+    Serial.println(thermValue);
 
     // приводимо значення в певний діапазон
     // все що виходить за межі відсікається
-    int value = constrain(termValue, 500, 900);
-    Serial.print("Стабілізоване значення: ");
+    int value = constrain(thermValue, 500, 900);
+    Serial.print("Cтабілізоване значення: ");
     Serial.println(value);
 
     // адаптовуємо обрізаний діапазон
