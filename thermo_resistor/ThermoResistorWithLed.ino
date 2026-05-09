@@ -13,7 +13,7 @@ void setup() {
 
 void loop() {
     // вичитуєм значення з аналогового піна
-    // до якого підключений фоторезистор
+    // до якого підключений ткрморезистор
     int thermValue = analogRead(sensePin);
     Serial.print("Значення з термістора: ");
     Serial.println(thermValue);
