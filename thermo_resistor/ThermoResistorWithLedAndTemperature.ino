@@ -26,7 +26,7 @@ void loop() {
     // вичитуєм значення з аналогового піна
     // до якого підключений фоторезистор
     int thermValue = analogRead(sensePin);
-    Serial.print("Значення з термістора: ");
+    Serial.print("Значення з порта термістора: ");
     Serial.println(thermValue);
 
 
@@ -34,24 +34,25 @@ void loop() {
     // Формула: R = R_fixed * ( (1023 / ADC) - 1 )
     float resistance = R_FIXED * (1023.0 / (float)thermValue - 1.0);
     Serial.print("Опір термістора: ");
-    Serial.println(resistance);
+    Serial.print(resistance);
+    Serial.println(" Ом");
 
     // 2. Формула Стейнхарта-Харта
     float logR = log(resistance);
     float tempK = 1.0 / (A + B * logR + C * logR * logR * logR);
-    Serial.print("температура в кельвінах: ");
+    Serial.print("Температура в кельвінах: ");
     Serial.println(tempK);
 
     // 3. Переводимо в Цельсії
     float tempC = tempK - 273.15;
-    Serial.print("температура в цельсіях: ");
+    Serial.print("Температура в цельсіях: ");
     Serial.println(tempC);
 
 
     // приводимо значення в певний діапазон
     // все що виходить за межі відсікається
     int value = constrain(thermValue, 500, 900);
-    Serial.print("стабілізоване значення: ");
+    Serial.print("Стабілізоване значення: ");
     Serial.println(value);
 
     // адаптовуємо обрізаний діапазон
