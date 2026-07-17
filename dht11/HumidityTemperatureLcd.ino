@@ -51,7 +51,6 @@ void setup() {
 }
 
 void loop() {
-
   // Оновлення кожні 2 секунди
   delay(2000);
 
@@ -93,15 +92,6 @@ void setTempHumidity() {
 
 // Виведення температури
 void printTemperature(float t) {
-
-  // Очищаємо перший рядок
-  lcd.setCursor(0, 0);
-  lcd.print("                ");
-
-  // Очищаємо другий рядок
-  lcd.setCursor(0, 1);
-  lcd.print("                ");
-
   // Початок першого рядка
   lcd.setCursor(0, 0);
 
